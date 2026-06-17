@@ -1,29 +1,12 @@
-const mongoose = require('mongoose');
+const BaseModel = require('./BaseModel');
 
-const ActivitySchema = new mongoose.Schema({
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
-  },
-  dealId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Deal',
-    required: true
-  },
-  type: {
-    type: String,
-    enum: ['deal_created', 'stage_change', 'meeting', 'call', 'email', 'other'],
-    default: 'other'
-  },
-  description: {
-    type: String,
-    required: [true, 'Please add an activity description']
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+class Activity extends BaseModel {
+  constructor(data) {
+    super('activities', data);
   }
-});
+}
 
-module.exports = mongoose.model('Activity', ActivitySchema);
+Activity.collectionName = 'activities';
+Activity.hiddenFields = [];
+
+module.exports = Activity;
