@@ -1,23 +1,12 @@
-const mongoose = require('mongoose');
+const BaseModel = require('./BaseModel');
 
-const AlertSchema = new mongoose.Schema({
-  message: {
-    type: String,
-    required: [true, 'Please add an alert message']
-  },
-  type: {
-    type: String,
-    enum: ['info', 'warning', 'danger'],
-    default: 'info'
-  },
-  isRead: {
-    type: Boolean,
-    default: false
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now
+class Alert extends BaseModel {
+  constructor(data) {
+    super('alerts', data);
   }
-});
+}
 
-module.exports = mongoose.model('Alert', AlertSchema);
+Alert.collectionName = 'alerts';
+Alert.hiddenFields = [];
+
+module.exports = Alert;
